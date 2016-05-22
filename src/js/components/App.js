@@ -12,6 +12,7 @@ var  React = require('react')
     ,ActiveCardChanged      = require('../redux/action/Actions').activeCardChanged
     ,StatusChosenAction     = require('../redux/action/Actions').statusChosen
     ,CardChosenAction       = require('../redux/action/Actions').cardChosenOrRejected
+    ,ChangeStatusFilter     = require('../redux/action/Actions').changeStatusFilter
     ,Card                   = require('../components/Card');
 
 var App = React.createClass({
@@ -28,21 +29,17 @@ var App = React.createClass({
 
     },
     componentDidMount:function(){
-        //this.refs.accept.addEventListener('dragover',  this.onDocDragOver, false);
-        //this.refs.reject.addEventListener('dragleave', this.onDocDragLeave, false);
-        //this.refs.reject.addEventListener("dragenter", this.onDocDragEnter, false);
         document.addEventListener('dragover',  this.onDocDragOver, false);
-       // document.addEventListener("drop",      this.onDocDrop,      false);
-        //this.refs.reject.addEventListener("drop",      this.onDocDrop,      false);
-        //this.refs.accept.addEventListener("drop",      this.onDocDrop,      false);
     },
     componentWillUnmount:function(){
-
+        //--
     },
     onDocDragOver: function onDocDragOver(e){
         e.preventDefault();
         e.stopPropagation();
-        //console.log("4. onDocDrop", e.srcElement.classList[0]);
+        //console.log("4. onDocDrop", e.srcElement.classList[0])
+        //
+
         if(e.srcElement.classList[0] === 'hit-accept'){
             if(this.props.chosenState !== true){
                 this.props.StatusChosenAction(true);
@@ -54,43 +51,45 @@ var App = React.createClass({
                 this.props.StatusChosenAction(false);
             }
         }
-
     },
 
     onDocDragLeave:function onDocDragLeave(e){
         e.preventDefault();
         e.stopPropagation();
-        // console.log("2. onDocDragLeave");
     },
     onDocDragEnter: function onDocDragEnter(e){
         e.preventDefault();
         e.stopPropagation();
-        //console.log("3. onDocDragEnter");
     },
     onDocDrop: function onDocDrop(e){
-        // e.preventDefault();
-        // e.stopPropagation();
-        // console.log("4. onDocDrop", e.srcElement.classList[0]);
-        // if(e.srcElement.classList[0] === 'hit-accept'){
-        //     this.props.StatusChosen(true);
-        // }
-        //
-        // if(e.srcElement.classList[0] === 'hit-reject'){
-        //     this.props.StatusChosenAction(false);
-        // }
-
+        e.preventDefault();
+        e.stopPropagation();
     },
     // The card has been picked up
     cardSelectedMethod: function(value){
-        this.props.ActiveCardChanged(value);
+        this.props.CardChosenAction(value);
     },
     // The card has been dropped and either chosen or rejected
     cardChoiceMadeOnDrop:function(value){
         console.log("cardChoiceMadeOnDrop ", value);
         var _data = Object.assign({}, value);
         // set the status to chosen or rejected - depending on the state of the app
-        _data.status = this.props.chosenState === Constants.STATUS_REJECT ? Constants.STATUS_REJECT : Constants.STATUS_ACCEPT;
+
+        console.log("this.props.chosenState ========================== ",this.props.chosenState);
+
+        _data.status = this.props.chosenState === false ? Constants.STATUS_REJECT : Constants.STATUS_ACCEPT;
         this.props.CardChosenAction(_data);
+    },
+    setStatePending:function(){
+        this.props.ChangeStatusFilter('pending');
+    },
+
+    setStateAccept:function(){
+        this.props.ChangeStatusFilter(Constants.STATUS_ACCEPT);
+    },
+
+    setStateReject:function(){
+        this.props.ChangeStatusFilter(Constants.STATUS_REJECT);
     },
 
     render:function(){
@@ -100,6 +99,9 @@ var App = React.createClass({
                 <div className="header">
                     <h1>This is the main page: {this.props.staffFilter} </h1>
                     <h1>Chosen: {this.props.chosenState ? Constants.STATUS_ACCEPT : Constants.STATUS_REJECT} </h1>
+                    <button onClick={this.setStatePending}>PENDING </button>
+                    <button onClick={this.setStateAccept} ref="choose">CHOSEN </button>
+                    <button onClick={this.setStateReject} ref="choose">REJECTED </button>
                 </div>
 
                 <div ref="accept" className="hit-accept"></div>
@@ -130,15 +132,16 @@ function mapDispatchToProps(dispatch){
             StaffFilteredAction: StaffFilteredAction,
             ActiveCardChanged:   ActiveCardChanged,
             StatusChosenAction:  StatusChosenAction,
-            CardChosenAction:    CardChosenAction
+            CardChosenAction:    CardChosenAction,
+            ChangeStatusFilter:  ChangeStatusFilter
         },
         dispatch);
 }
 
 var mapStateToProps = function(state){
-    return {    staff:      state.staff,
-                staffFilter:  state.staffFilter,
-                chosenState: state.chosenState
+    return {    staff:          state.staff,
+                staffFilter:    state.staffFilter,
+                chosenState:    state.chosenState
             }
 };
 

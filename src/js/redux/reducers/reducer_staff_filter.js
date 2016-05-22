@@ -10,8 +10,8 @@ module.exports = (state="pending", action=null)=>{
 
     switch (action.type) {
         case Consts.STAFF_FILTER_CHANGED :
-            console.log("THE REDUCER FOR THE STAFF FILTER HAS BEEN FIRED ")
-            return state;
+            console.log("THE REDUCER FOR THE STAFF FILTER HAS BEEN FIRED ", action.payload);
+            return action.payload;
         default :
             return state;
     }

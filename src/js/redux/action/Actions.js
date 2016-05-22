@@ -50,6 +50,13 @@ function cardChosenOrRejected(value){
     }
 }
 
+function changeStatusFilter(value){
+    return{
+        type: Types.STAFF_FILTER_CHANGED,
+        payload: value
+    }
+}
+
 
 module.exports = {
     staffAdded: staffAdded,
@@ -57,7 +64,8 @@ module.exports = {
     staffFilterChanged : staffFilterChanged,
     activeCardChanged : activeCardChanged,
     statusChosen: statusChosen,
-    cardChosenOrRejected: cardChosenOrRejected
+    cardChosenOrRejected: cardChosenOrRejected,
+    changeStatusFilter: changeStatusFilter
 };
 
 
