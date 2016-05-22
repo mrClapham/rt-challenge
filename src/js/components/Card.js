@@ -54,8 +54,14 @@ var Card = React.createClass({
         return (
             <div className="card" draggable="true" ref="card" style={this.getStyle()}>
                 <img src={this.props.data.image} draggable="false"/>
-                <p>level {this.props.level}</p>
-                <h1>{this.props.data.name}</h1>
+                <h2>{this.props.data.name}</h2>
+                <div class="accept-reject">
+                    <div>Drag right to accept, left to reject</div>
+                    <div>Accept <i className="fa fa-arrow-right" aria-hidden="true"></i>
+                    </div>
+                    <div><i className="fa fa-arrow-left" aria-hidden="true"></i> Reject</div>
+                </div>
+
             </div>
         )
     }
