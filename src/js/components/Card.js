@@ -15,6 +15,9 @@ var Card = React.createClass({
             onSelectedMethod: ()=>{
                 console.log("no method set");
             },
+            onChoiceMade:function(value){
+                console.log("no method set ")
+            },
             data:{
                 name:"Default Name",
                 image:"images/person.png",
@@ -36,13 +39,10 @@ var Card = React.createClass({
     onDragStart: function onDragStart(e){
         console.log("onDragStart ");
         this.props.onSelectedMethod(this.props.data);
-        var currentDragger = e.target;
     },
 
     onDragEnd: function onDragEnd(e){
-        console.log("onDragEnd ", this.props.onSelectedMethod);
-        this.props.onSelectedMethod.call(this, this.props.data);
-        var currentDragger = e.target;
+        this.props.onChoiceMade.call(this, this.props.data);
     },
     getStyle: function(){
         return({top: 2*this.props.level,
@@ -51,7 +51,6 @@ var Card = React.createClass({
     },
 
     render:function(){
-
         return (
             <div className="card" draggable="true" ref="card" style={this.getStyle()}>
                 <img src={this.props.data.image} draggable="false"/>

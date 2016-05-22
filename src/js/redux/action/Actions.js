@@ -27,17 +27,25 @@ function staffFilterChanged(value){
 }
 
 function activeCardChanged(value){
-    console.log("activeCardChanged ", value);
+    //console.log("activeCardChanged ", value);
     return{
         type: Types.ACTIVE_CARD_CHANGED,
         payload: value
     }
 }
 
-function statusChosen(){
+function statusChosen(value){
     console.log("statusChosen ", value);
     return{
-        type: Types.ACTIVE_CARD_CHANGED,
+        type: Types.STATUS_CHANGED,
+        payload: value
+    }
+}
+
+function cardChosenOrRejected(value){
+    console.log("statusChosen ", value);
+    return{
+        type: Types.CHOICE_MADE,
         payload: value
     }
 }
@@ -47,7 +55,9 @@ module.exports = {
     staffAdded: staffAdded,
     staffRemoved : staffRemoved,
     staffFilterChanged : staffFilterChanged,
-    activeCardChanged : activeCardChanged
+    activeCardChanged : activeCardChanged,
+    statusChosen: statusChosen,
+    cardChosenOrRejected: cardChosenOrRejected
 };
 
 
