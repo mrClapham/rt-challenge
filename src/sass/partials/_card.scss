@@ -1,0 +1,37 @@
+.card{
+  text-align: center;
+  position: absolute;
+  width: 400px;
+  height: 600px;
+  border: 1px solid #4d4d4c;
+  background-color: #00b3ee;
+  img{
+    width:100%;
+  }
+}
+
+.card-holder{
+  position: relative;
+  margin: 0 auto;
+  width: 33%;
+  height: 100%;
+  min-height: 800px;
+  background-color: #e1f1ff;
+}
+
+.hit-reject{
+  position: absolute;
+  left:0;
+  top:0;
+  bottom: 0;
+  width:33%;
+  background-color: #2b81af;
+}
+.hit-accept{
+  position: absolute;
+  right:0;
+  top:0;
+  bottom: 0;
+  width:33%;
+  background-color: #ff4f10;
+}
