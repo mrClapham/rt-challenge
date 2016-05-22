@@ -1,4 +1,4 @@
-# An empty app seed for ES6 projects
+# Swipe card test
 
 run:
 
@@ -22,6 +22,11 @@ $ webpack
 
 ```
 
+This was about 5 hours total. 
 
-10:30 - starting with my es6 app seed. Thought about going for a vanilla js no-framework approach but sticking to the brief and using React/redux. Starting by npm installing all the dependencies.
+There is a working version at [https://rota-demo.herokuapp.com/](https://rota-demo.herokuapp.com/)
+
+
+
+
 
